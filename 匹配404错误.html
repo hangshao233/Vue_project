@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+    var index = Vue.extend({template: "<h1>首页</h1>"})
+    var profile = Vue.extend({
+        template: "<h1>个人主页{{$route.params.userid}}</h1>",
+        mounted(){
+            // console.log(this.$route)
+            // console.log(this.$router)
+            // console.log(this.$route.params.userid)
+            if(this.$route.params.userid!='123'){
+                this.$router.replace('/404')
+            }
+        }
+        })
+    var notfind = Vue.extend({template: "<p>您要找的页面不存在</p>"})
+    var router = new VueRouter({
+        routes:[
+            {path:"/", component:index},
+            {path:"/profile/:userid", component:profile},
+            // 匹配页面中未找到的URL
+            {path:"*", component:notfind},
+            {path:"/404", component:notfind},
+
+        ]
+    })
+    new Vue({
+        el: "#app",
+        router: router
+    })
+</script>

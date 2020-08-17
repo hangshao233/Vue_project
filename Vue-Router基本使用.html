@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/">首页</router-link>
+        <router-link to="/music">音乐</router-link>
+         <!-- 路由匹配到的组件将渲染到这里 -->
+        <router-view></router-view>
+    </div>
+
+   
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script>
+    // component 组件的名字 extend 是没有组件的名字的
+    var index = Vue.extend({template:"<h1>这是首页</h1>"})
+    var music = Vue.extend({template:"<h1>这是音乐节目</h1>"})
+
+    var router = new VueRouter({
+        routes:[
+            {path: "/", component:index},
+            {path: "/music", component:music},
+        ]
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+
+        },
+        // router 关键字
+        router:router
+
+    })
+</script>

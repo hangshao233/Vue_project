@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <book-list v-bind:books="books"></book-list>
+        
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    // 自定义组件  book-list标签名字
+    Vue.component('book-list',{
+        //给组件添加属性
+        props: ['books'],
+        template: `
+        <div>
+            <table>
+                <tr>
+                    <td>序号</td>
+                    <td>标题</td>
+                </tr>
+                <tr v-for="(book, index) in books">
+                    <td >{{index+1}}</td>
+                    <td>{{book.title}}</td>
+                </tr>
+            </table>
+            <br>
+            <div>hangshao</div>
+        <div>
+        `
+        
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            books: [
+                {'title': 'python', 'id': 1},
+                {'title': 'java', 'id': 2},
+                {'title': 'php', 'id': 3}
+            ]
+        }
+    })
+</script>

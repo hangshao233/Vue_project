@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue模板语法1</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <p v-if="weather == 'sunny' ">今天去约女神</p>
+        <p v-else-if="weather == 'rain' ">今天去打游戏</p>
+        <p v-else>今天睡觉</p> -->
+
+        <!-- <template v-if="age <= 18">
+            <p>逃课</p>
+            <p>打游戏</p>
+        </template>
+        <template v-else-if="age <= 25">
+            <p>学习</p>
+            <p>找工作</p>
+        </template>
+        <template v-else>
+            <p>996</p>
+            <p>007</p>
+        
+        </template> -->
+        <!-- <template v-if="logintype == 'username' ">
+            <label for="">用户名:</label>
+            <input type="text" placeholder="用户名" key="username">
+        </template>
+        <template v-else-if="logintype == 'email' ">
+            <label for="">邮箱:</label>
+            <input type="text" placeholder="邮箱" key="email">
+        </template>
+        <button v-on:click="ChangeLojinType">切换登陆方式</button> -->
+        
+        <table>
+            <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <th>作者</th>
+            </tr>
+            <tr v-for="(book,index) in books">
+                <td>{{index+1}}</td>
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+            </tr>
+        </table>
+        <br>
+        <div v-for="(value,key) in person">
+            {{key}}:{{value}}
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            weather: 'rain',
+            age: 18,
+            logintype: 'email',
+            books: [
+                {
+                    'title': 'Python',
+                    'author': '小甲鱼'
+                },
+                {
+                    'title': 'Java',
+                    'author': 'xxx1'
+                },
+                {
+                    'title': 'PHP',
+                    'author': 'xxx2'
+                },
+                {
+                    'title': 'C++',
+                    'author': 'xxx3'
+                }
+            ],
+            person: {
+                'username': 'hangshao',
+                'age': 20,
+                'school': 'WUST'
+            }
+        },
+        methods: {
+            ChangeLojinType:function() {
+                this.logintype = this.logintype=='username'?'email':'username'
+            }
+        }
+    })
+</script>

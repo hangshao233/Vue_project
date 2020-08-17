@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/">首页</router-link>
+        <router-link to="/profile/123">个人中心</router-link>
+        <router-link to="/profile/456">个人中心</router-link>
+
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+    var index = Vue.extend({template:"<h1>首页</h1>"})
+    var profile = Vue.extend(
+        {
+            template:"<h1>个人中心 {{$route.params.userid}}</h1>",
+            mounted(){
+                console.log(this.$route)
+                console.log(this.$router)
+            }
+        })
+    var router = new VueRouter({
+        routes: [
+            {path: "/", component: index},
+            {path: "/profile/:userid", component: profile},
+        ],
+       
+    })
+
+    new Vue({
+        el: "#app",
+        router: router
+    })
+</script>

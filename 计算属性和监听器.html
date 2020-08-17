@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性和监听器</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model双向绑定 -->
+        <!-- <label >长：</label>
+        <input type="number" name="length" v-model:value="length">
+        <label >宽：</label>
+        <input type="number" name="width" v-model:value="width">
+        <label >面积：</label>
+        <input type="number" readonly v-bind:value="area"> -->
+
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            length: 0,
+            width: 0
+        },
+        //计算属性
+        computed: {
+            area: function(){
+                console.log(this.length, this.width)
+                return this.length * this.width
+            }
+        }
+    })
+</script>

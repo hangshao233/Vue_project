@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">首页</a>
+              </div>
+          
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                      <router-link to="/">首页</router-link>
+                    </li>
+                    <li>
+                        <router-link to="/user/123">个人中心</router-link>
+                    </li>
+                 
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+          <div class="container">
+              <router-view></router-view>
+          </div>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+<script>
+    var index = Vue.extend({template: "<h1>首页</h1>"})
+    var user = Vue.extend({
+        template: `
+        <div>
+        <h1>个人中心</h1>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <router-link to="/user/123/setting">设置</router-link>
+            </li>
+            <li role="presentation">
+                <router-link to="/user/123/message">消息</router-link>
+            </li>
+        </ul>
+        <div class="container">
+            <router-view></router-view>
+        </div>
+        </div>
+        `
+        })
+
+    var setting = Vue.extend({template:"<h1>设置</h1>"})
+    var message = Vue.extend({template:"<h1>消息</h1>"})
+    var router = new VueRouter({
+        routes: [
+            {path: "/", component: index},
+            {
+                path: "/user/:userid",
+                component: user,
+                children:[
+                    // 访问默认页面
+                    {path: "", component:setting},
+                    {path: "setting", component:setting},
+                    {path: "message", component:message},
+                ]
+            },
+            // {path: "/user/:userid/setting", component: setting}
+        ]
+    })
+    new Vue({
+        el: "#app",
+        router:router
+    })
+</script>

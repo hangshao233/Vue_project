@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <book-list v-for="book in books" v-bind:book="book"
+         @check-changed="checks"></book-list>
+        
+        <div v-for="cbook in componentbook">
+            {{cbook.title}}
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script>
+    
+    Vue.component('book-list',{
+        props:['book'],
+        template:`
+        <div>
+            <span>{{book.title}}</span>
+            <input type="checkbox" @click="Oncheck">
+        </div>
+        `,
+        methods:{
+            Oncheck: function(){
+                this.$emit('check-changed', this.book)
+            }
+        }
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            books:[
+                {"title": "python", "id":1},
+                {"title": "java", "id":2},
+                {"title": "php", "id":3},
+            ],
+            componentbook: []
+        },
+        methods:{
+            checks:function(book){
+                // console.log(book)
+                // indexOf > 0 
+                var index = this.componentbook.indexOf(book)
+                if(index >= 0){
+                    // todo
+                    this.componentbook.splice(index,1)
+                    // 这种方式每次弹出最后一个
+                    // this.componentbook.pop()
+                }else{
+                    this.componentbook.push(book)
+                }
+            }
+        }
+    })
+</script>

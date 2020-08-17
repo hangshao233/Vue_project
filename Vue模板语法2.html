@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue模板语法2</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <div v-for="book in books" v-bind:key="book">
+            <label for="">{{book}}</label>
+            <input type="text" v-bind:placeholder="book">
+        </div>
+        <button v-on:click="ChangeBooks">更换顺序</button> -->
+        <!-- <div v-for="book in books">
+            <label for="">{{book}}</label>
+        </div>
+        <button v-on:click="UpdateList">更新数据</button> -->
+        <p>{{count}}</p>
+        <button v-on:click="count+=1">加</button>
+        <button v-on:click="sub">减</button>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        data:{
+            books: ['Python', 'Java', 'PHP', 'C++'],
+            count: 1
+        },
+        methods: {
+            // ChangeBooks: function() {
+            //     this.books.sort(function (a,b) {
+            //         //正数:true; 负数:false
+            //         return 5 - Math.random()*10
+            //     })
+            // }
+            UpdateList: function() {
+                //this.books.push("New Content")
+                //this.books.pop()
+                //this.books.splice(0,0,"New Content")
+                //this.books.splice(0,2,"New Content")
+                //this.books.reverse()
+                this.books.sort(function (a,b) {
+                    x = Math.random()
+                    y = Math.random()
+                    return x - y
+                })
+            },
+            sub: function(){
+                this.count -= 1
+            }
+        }
+    })
+</script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <router-view name="header"></router-view>
+        </div>
+        <div class="body">
+            <router-view name="left"></router-view>
+            <router-view name="right"></router-view>
+        </div>
+        <div class="footer">
+            <router-view name="footer"></router-view>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+    headerc = Vue.extend({template:"<h1>header部分</h1>"})
+    leftc = Vue.extend({template:"<h1>leftc部分</h1>"})
+    rightc = Vue.extend({template:"<h1>rightcr部分</h1>"})
+    footerc = Vue.extend({template:"<h1>footerc部分</h1>"})
+    var router = new VueRouter({
+        routes: [
+            {path:"/", components:{
+                header: headerc,
+                left: leftc,
+                right: rightc,
+                footer: footerc,
+            }}
+        ]
+    })
+    new Vue({
+        el: "#app",
+        router:router
+    })
+</script>

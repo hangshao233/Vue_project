@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue模板语法</title>
+    <style>
+        .title1{
+            font-size: 30px;
+            color: red;
+        }
+        .title2{
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p v-bind:style="{color:color?'blue':'black'}">{{username.split(" ").reverse().join(" ")}}</p>
+        <p class="title1">中国加油</p>
+        <p v-bind:style="pstyle">武汉加油</p>
+        <p v-bind:style="[pclass1, pclass2]">航少加油</p>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            username: "hello world",
+            color: true,
+            class1: "title1",
+            class2: "title2",
+            background: 'red',
+            pstyle: {
+                'background-color': 'rgb(255,255,68)',
+                'font-size': '40px'
+            },
+            pclass1: {
+                backgroundColor: 'rgb(68,255,68)',
+                fontSize: '50px'
+            },
+            pclass2: {
+                fontWeight: 800
+            }
+        }
+    })
+</script>

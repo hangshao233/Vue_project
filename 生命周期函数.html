@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p id="username">{{username}}</p>
+        <input type="text" v-model="username"> 
+
+        <error-view v-bind:message="message" v-if="message"></error-view>
+        <button @click="message=''">点击</button>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    Vue.component('error-view',{
+        props:['message'],
+        template:'<p style="color:red">{{message}}</p>',
+        methods:{
+
+        },
+        beforeDestroy(){
+            console.log('hello')
+        }
+    })
+
+    new Vue({
+        el: "#app",
+        data: {
+            username:"逻辑",
+            message:"错误信息"
+        },
+        methods:{
+            demo: function(){
+                return "hello world"
+            }
+        },
+        //beforeCreate：Vue或者组件刚刚实例化，data、methods都还没有被创建。
+        beforeCreate(){
+            console.log("==========")
+            console.log(this.username);
+            console.log(this.demo);
+            console.log("==========")
+        },
+        created(){
+            console.log("==========")
+            console.log(this.username);
+            console.log(this.demo);
+            console.log("==========")
+        },
+        beforeMount(){
+            console.log(document.getElementById('username').innerText)
+        },
+        mounted(){
+            console.log(document.getElementById('username').innerText)
+        },
+
+        beforeUpdate(){
+            console.log(document.getElementById('username').innerText)
+        },
+        updated(){
+            console.log(document.getElementById('username').innerText)
+        }
+    })
+</script>
+

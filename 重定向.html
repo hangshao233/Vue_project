@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>    
+</body>
+</html>
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>    
+    var article = Vue.extend({template:"<h1>我是文章列表</h1>"})
+    var router = new VueRouter({
+        routes: [
+            // redirect 重定向 
+            {path:"/", redirect:"/article"},
+            // alias 重新取名字  alias Linux 给命令取名字的  ls ll 
+            {path:"/article", component: article, alias: "/list"},
+
+        ]
+    })
+    new Vue({
+        el: "#app",
+        router: router
+    })
+</script>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <stepper v-model:value="goods_count"></stepper>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    // 计步器
+    Vue.component('stepper',{
+        props: ['count'],
+        model:{
+            // 代表什么情况下触发这个v-model的行为 
+            event: 'count-chaned',
+            prop: 'count'
+        },
+        template: `
+            <div>
+                <button @click="sub">-</button>
+                <span>{{count}}</span>
+                <button @click="adds">+</button>
+            </div>
+        `,
+        methods:{
+            sub:function(){
+                this.$emit('count-chaned', this.count-1)
+            },
+            adds:function(){
+                this.$emit('count-chaned', this.count+1)
+            }
+        }
+    })
+    new Vue({
+        el: "#app",
+        data: {
+            goods_count: 0
+        }
+    })
+</script>

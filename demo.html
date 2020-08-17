@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        username:<p>{{username}}</p>
+        password:<p>{{password}}</p>
+        <!-- {{demo()}} -->
+        <button @click="demo">点击</button>
+        <p v-html="code">{{code}}</p>
+        <img v-bind:src="image" alt="">
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        data:{
+            "username":"航少",
+            "password":"admin",
+            "code":"<a href='https://www.baidu.com/'>百度一下</a>",
+            "image":"./1.jpg"
+        },
+        methods:{
+            demo: function(){
+                this.username="牛逼"
+            }
+        }
+    })
+</script>

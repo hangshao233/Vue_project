@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <h1>图书管理系统</h1>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label>名称:</label>
+                    <input type="text" class="form-control" id="name" placeholder="请输入图书名字" v-model="addding_book.name">
+                </div>
+                <div class="form-group">
+                    <label>作者:</label>
+                    <input type="text" class="form-control" id="author" placeholder="请输入作者" v-model="addding_book.author">
+                </div>
+                <div class="form-group">
+                    <label>价格:</label>
+                    <input type="number" class="form-control" id="price" placeholder="请输入价格" v-model="addding_book.price">
+                </div>
+                <div class="form-group">
+                    <label>搜索:</label>
+                    <input type="text" class="form-control"  v-model="keywrods">
+                </div>
+                <!-- 阻止表单跳转 -->
+                <button type="submit" @click.prevent="add" class="btn btn-default">添加</button>
+            </form>
+            <table class="table">
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>价格</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(book,index) in book_result">
+                    <td>{{index+1}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.price}}</td>
+                    <td>{{book.atime}}</td>
+                    <td><button class="btn btn-danger" @click="del(index)">删除</button></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            books:[
+                {"name": "Python", "author":"龟叔", "price":98, "atime":new Date()},
+                {"name": "Java", "author":"xxx", "price":96, "atime":new Date()}
+            ],
+            addding_book:{
+                name:"",
+                author:"",
+                price: 0
+            },
+            keywrods: ""
+        },
+        methods:{
+            add: function(){
+                // JSON.stringify 转成字符串  JSON.parse 转成JS代码
+                var book = JSON.parse(JSON.stringify(this.addding_book))
+                // 如果直接添加,改变值addding_book中的值 也会变化
+                // this.books.push(this.addding_book)
+                book.atime = new Date()
+                this.books.push(book)
+                // 添加完成后清空输入框
+                this.addding_book = {
+                    name:"",
+                    author:"",
+                    price: 0
+                }
+            },
+            del: function(index){
+                this.books.splice(index,1)
+            }
+        },
+        computed: {
+            book_result(){
+                const that = this;
+                kw = this.keywrods
+                if(this.keywrods){
+                    // item 是books中的book
+                    var newbooks = this.books.filter(function(item){
+                        // 这里面可以用kw 也可以用that.keywords 在这个方法中this指向的就不是输入的字了
+                        if(item.name.indexOf(kw) >= 0){
+                            return true
+                        }else{
+                            return false
+                        }
+                    })
+                    return newbooks
+                }else{
+                    return this.books
+                }
+            }
+
+        }
+    })
+</script>

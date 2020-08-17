@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="gotoPost">列表</button>
+        <button @click="gotoProfile">个人中心</button>
+        <button @click="login">登录</button>
+        <button @click="gonext">下一步</button>
+        <button @click="goprev">上一步</button>
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+
+
+<script src="./vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<script>
+    var post = Vue.extend({template:"<h1>列表</h1>"})
+    var profile = Vue.extend({template:"<h1>个人中心{{$route.params.userid}}</h1>"})
+    var router = new VueRouter({
+        routes: [
+            {path: "/post", component:post},
+            {path: "/profile/:userid", component:profile, name:"myprofile"},
+        ]
+    });
+
+    new Vue({
+        el: "#app",
+        router:router,
+        methods: {
+            gotoPost:function(){
+                this.$router.push("/post")
+            },
+            gotoProfile(){
+                // this.$router.push("/profile/123")
+                // profile/123
+                this.$router.push({name:"myprofile", params:{userid: "juran"}})
+            },
+            login(){
+                // wd?python
+                this.$router.push({path:"login", query:{wd:"python"}})
+            },
+            gonext(){
+                this.$router.go(1)
+            },
+            goprev(){
+                this.$router.go(-1)
+            }
+        }
+    })
+</script>

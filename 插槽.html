@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <nav-link url="https://www.baidu.com/">
+       <!-- <nav-link :url="url"> -->
+           <!-- 个人中心 -->
+           <!-- {{name}} -->
+           <template v-slot:header>这是header</template>
+           <!-- <template v-slot:main>这是main</template> -->
+           <template>这是main</template>
+           <template v-slot:footer>这是footer</template>
+        </nav-link>
+    </div>
+</body>
+</html>
+
+<script src="./vue.js"></script>
+<script>
+    Vue.component('nav-link',{
+        props:['url'],
+        template:`
+        <a v-bind:href="url">
+            <div>
+                <slot name="header"></slot>
+            </div>
+            <div>
+                <slot></slot>
+            </div>   
+            <div>    
+                <slot name="footer"></slot>
+            </div>
+        </a>
+        `,
+        data: function(){
+            return {
+                name: "教育"
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app",
+        data: {
+            url: "https://www.baidu.com/",
+            // name: "逻辑"
+        }
+    })
+</script>
